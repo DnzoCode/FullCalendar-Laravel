@@ -3,7 +3,7 @@
   <head>
     <meta charset='utf-8' />
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
-    
+    <link href='https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css' rel='stylesheet'>
   </head>
   <body>
     <div class="container">
@@ -11,7 +11,7 @@
 
     </div>
 
-
+  
 
     
   
@@ -24,7 +24,7 @@
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
-            <form action="">
+            <form action="" id="formularioEventos">
                 {!! csrf_field() !!}
                   <input type="hidden" name="id" id="id" class="form-control" placeholder="" aria-describedby="helpId">
 
@@ -59,6 +59,7 @@
   </div>
 
     <script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.0.2/index.global.min.js"></script>
+    
 
     <script src="{{asset('js/calendar.js')}}" type="module"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js" integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous"></script>
@@ -73,3 +74,5 @@
     </script>
   </body>
 </html>
+
+

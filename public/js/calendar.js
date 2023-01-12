@@ -1,7 +1,7 @@
 document.addEventListener('DOMContentLoaded', function() {
  
 
-    let formulario = document.querySelector('form');
+    let formulario = document.querySelector('#formularioEventos');
 
     var calendarEl = document.getElementById('calendar');
     var calendar = new FullCalendar.Calendar(calendarEl, {
@@ -13,9 +13,9 @@ document.addEventListener('DOMContentLoaded', function() {
           center:'title',
           right:'dayGridMonth,listWeek'
       },
+      themeSystem: 'bootstrap5',
 
       events: baseURL+"/event/mostrar",
-
 
       dateClick:function(info){
         formulario.reset();

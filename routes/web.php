@@ -14,6 +14,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+
 Route::get('/', function () {
     return view('welcome');
 });
@@ -24,6 +25,3 @@ Route::post('event/agregar', [EventController::class,'store'])->name('event.stor
 Route::post('event/editar/{id}', [EventController::class,'edit'])->name('event.edit');
 Route::post('event/actualizar/{evento}', [EventController::class,'update'])->name('event.update');
 Route::post('event/borrar/{id}', [EventController::class,'destroy'])->name('event.destroy');
-
-Route::patch('event/update/{id}', [EventController::class,'update'])->name('event.update');
-Route::delete('event/destroy/{id}', [EventController::class,'destroy'])->name('event.destroy');
