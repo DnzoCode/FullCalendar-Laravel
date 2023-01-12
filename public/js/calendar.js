@@ -11,35 +11,31 @@ document.addEventListener('DOMContentLoaded', function() {
       headerToolbar:{
           left:'prev,next today',
           center:'title',
-          right:'dayGridMonth,timeGridWeek,listWeek'
+          right:'dayGridMonth,listWeek'
       },
 
-      events: "http://127.0.0.1:8000/event/mostrar",
+      events: baseURL+"/event/mostrar",
 
 
       dateClick:function(info){
-
         formulario.reset();
         formulario.start.value = info.dateStr;
         formulario.end.value = info.dateStr;
         $("#evento").modal("show");
-      }
-  
-      
-    });
-    
-    calendar.render();
+      },
+      eventClick:function(info){
+        let evento = info.event;
+        console.log(evento);
 
-    document.getElementById("btnGuardar").addEventListener("click",function(){
-        const datos = new FormData(formulario);
-        console.log(datos);
-        console.log(formulario.title.value);
-
-        axios.post("http://127.0.0.1:8000/event/agregar",datos).
+        axios.post(baseURL+"/event/editar/"+info.event.id).
         then(
           (respuesta)=>{
-            calendar.refetchEvents();
-            $("#evento").modal("hide");
+
+            formulario.id.value = respuesta.data.id;
+            formulario.title.value = respuesta.data.title;
+            formulario.start.value = respuesta.data.start;
+            formulario.end.value = respuesta.data.end;
+            $("#evento").modal("show");
           }
         ).catch(
           error=>{
@@ -48,5 +44,43 @@ document.addEventListener('DOMContentLoaded', function() {
             }
           }
         )
+      }
+  
+      
     });
+    
+    calendar.render();
+
+    document.getElementById("btnGuardar").addEventListener("click",function(){
+          enviarDatos("/event/agregar")
+    });
+
+
+    document.getElementById("btnEliminar").addEventListener("click",function(){
+          enviarDatos("/event/borrar/"+formulario.id.value);
+    });
+
+
+    document.getElementById("btnModificar").addEventListener("click",function(){
+      enviarDatos("/event/actualizar/"+formulario.id.value);
+    });
+
+    function enviarDatos(url){
+      const datos = new FormData(formulario);
+
+      const nuevaURL = baseURL+url;
+      axios.post(nuevaURL, datos).
+      then(
+        (respuesta)=>{
+          calendar.refetchEvents();
+          $("#evento").modal("hide");
+        }
+      ).catch(
+        error=>{
+          if(error.response){
+            console.log(error.response.data)
+          }
+        }
+      )
+    }
   });

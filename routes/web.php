@@ -19,8 +19,11 @@ Route::get('/', function () {
 });
 
 Route::get('event', [EventController::class,'index'])->name('event.index');
-Route::get('event/mostrar', [EventController::class,'show'])->name('event.index');
+Route::get('event/mostrar', [EventController::class,'show'])->name('event.show');
 Route::post('event/agregar', [EventController::class,'store'])->name('event.store');
+Route::post('event/editar/{id}', [EventController::class,'edit'])->name('event.edit');
+Route::post('event/actualizar/{evento}', [EventController::class,'update'])->name('event.update');
+Route::post('event/borrar/{id}', [EventController::class,'destroy'])->name('event.destroy');
 
 Route::patch('event/update/{id}', [EventController::class,'update'])->name('event.update');
 Route::delete('event/destroy/{id}', [EventController::class,'destroy'])->name('event.destroy');

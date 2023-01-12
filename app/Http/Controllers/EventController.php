@@ -9,6 +9,7 @@ use App\Models\eventUser;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
+use Carbon\Carbon;
 
 class EventController extends Controller
 {
@@ -62,9 +63,14 @@ class EventController extends Controller
      * @param  \App\Models\Event  $event
      * @return \Illuminate\Http\Response
      */
-    public function edit(Event $event)
+    public function edit($id)
     {
-        //
+        $evento = Event::find($id);
+
+        $evento->start = Carbon::createFromFormat('Y-m-d H:i:s', $evento->start)->format('Y-m-d');
+
+        $evento->end = Carbon::createFromFormat('Y-m-d H:i:s', $evento->end)->format('Y-m-d');
+        return response()->json($evento);
     }
 
     /**
@@ -74,19 +80,11 @@ class EventController extends Controller
      * @param  \App\Models\Event  $event
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Event $evento)
     {
-        $booking = Event::find($id);
-        if(! $booking) {
-            return response()->json([
-                'error' => 'Unable to locate the event'
-            ], 404);
-        }
-        $booking->update([
-            'start_date' => $request->start_date,
-            'end_date' => $request->end_date,
-        ]);
-        return response()->json('Event updated');
+        request()->validate(Event::$rules);
+        $evento->update($request->all());
+        return response()->json($evento);
     }
 
     /**
@@ -97,13 +95,7 @@ class EventController extends Controller
      */
     public function destroy($id)
     {
-        $booking = Event::find($id);
-        if(! $booking) {
-            return response()->json([
-                'error' => 'Unable to locate the event'
-            ], 404);
-        }
-        $booking->delete();
-        return $id;
+        $evento = Event::find($id)->delete();
+        return response()->json($evento);
     }
 }

@@ -14,10 +14,6 @@
 
 
     
-<!-- Button trigger modal -->
-<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#evento">
-    Launch static backdrop modal
-  </button>
   
   <!-- Modal -->
   <div class="modal fade" id="evento" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
@@ -30,28 +26,22 @@
         <div class="modal-body">
             <form action="">
                 {!! csrf_field() !!}
-
-                <div class="form-group">
-                  <label for="" class="form-label">ID:</label>
-                  <input type="text" name="id" id="id" class="form-control" placeholder="" aria-describedby="helpId">
-                  <small id="helpId" class="text-muted">Help text</small>
-                </div>
+                  <input type="hidden" name="id" id="id" class="form-control" placeholder="" aria-describedby="helpId">
 
                 <div class="form-group">
                     <label for="title" class="form-label">Titulo</label>
                     <input type="text"class="form-control" name="title" id="title" aria-describedby="helpId" placeholder="">
-                    <small id="helpId" class="form-text text-muted">Help text</small>
                 </div>
 
                 <div class="form-group">
                   <label for="start" class="form-label">Start</label>
-                  <input type="text" name="start" id="start" class="form-control" placeholder="" aria-describedby="helpId">
+                  <input type="date" name="start" id="start" class="form-control" placeholder="" aria-describedby="helpId">
                   <small id="helpId" class="text-muted">Help text</small>
                 </div>
 
                 <div class="form-group">
                     <label for="end" class="form-label">End</label>
-                    <input type="text" name="end" id="end" class="form-control" placeholder="" aria-describedby="helpId">
+                    <input type="date" name="end" id="end" class="form-control" placeholder="" aria-describedby="helpId">
                     <small id="helpId" class="text-muted">Help text</small>
                   </div>
 
@@ -77,5 +67,9 @@
     
     <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.2.2/axios.min.js" integrity="sha512-QTnb9BQkG4fBYIt9JGvYmxPpd6TBeKp6lsUrtiVQsrJ9sb33Bn9s0wMQO9qVBFbPX3xHRAsBHvXlcsrnJjExjg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.3/jquery.min.js" integrity="sha512-STof4xm1wgkfm7heWqFJVn58Hm3EtS31XFaagaa8VMReCXAkQnJZ+jEy8PCC/iT18dFy95WcExNHFTqLyp72eQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  
+    <script type="text/javascript">
+        let baseURL = {!! json_encode(url('/')) !!};
+    </script>
   </body>
 </html>
