@@ -19,6 +19,8 @@ Route::get('/', function () {
 });
 
 Route::get('event', [EventController::class,'index'])->name('event.index');
-Route::post('event', [EventController::class,'store'])->name('event.store');
+Route::get('event/mostrar', [EventController::class,'show'])->name('event.index');
+Route::post('event/agregar', [EventController::class,'store'])->name('event.store');
+
 Route::patch('event/update/{id}', [EventController::class,'update'])->name('event.update');
 Route::delete('event/destroy/{id}', [EventController::class,'destroy'])->name('event.destroy');

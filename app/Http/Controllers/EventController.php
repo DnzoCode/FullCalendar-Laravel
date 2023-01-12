@@ -40,54 +40,8 @@ class EventController extends Controller
      */
     public function store(Request $request)
     {
-        $request->validate([
-            'title' => 'required|string',
-        ]);
-        $booking = Event::create([
-            'title' => $request->title,
-            'start_date' => $request->start_date,
-            'end_date' => $request->end_date,
-        ]);
-        $color = "black";
-
-        $eventUser=eventUser::create([
-            'user_id' => $request->user_id,
-            'event_id' => $booking->id
-        ]);
-
-        //Mail::to(Auth::user()->email)->send(new CalendarEmail($booking));
-
-        /*$event = new eventUser;
-        $event->id=$request->id;
-        $event->user_id=$request->user_id;
-        $event->event_id=$booking->id;
-
-        if($event->save()){
-            $id=$event->id;
-            $key= array();
-        foreach($request->user_id as $key=>$v){
-                $data = [
-                    'id'=>$id,
-                    'user_id'=>$request->user_id[$key],
-                    'event_id'=>$booking->id[$key],
-                ];
-            
-                
-
-                eventUser::insert($data);
-            }
-        }*/
-        return response()->json([
-            'id' => $booking->id,
-            'start' => $booking->start_date,
-            'end' => $booking->end_date,
-            'title' => $booking->title,
-            'color' => $color ? $color: '',
-            'user_id' => $eventUser->user_id,
-            'event_id' => $booking->id
-
-        ]);
-        return redirect('event');
+        request()->validate(Event::$rules);
+        $evento = Event::create($request->all());
     }
 
     /**
@@ -96,9 +50,10 @@ class EventController extends Controller
      * @param  \App\Models\Event  $event
      * @return \Illuminate\Http\Response
      */
-    public function show(Event $event)
+    public function show(Event $evento)
     {
-        //
+        $evento = Event::all();
+        return response()->json($evento);
     }
 
     /**
