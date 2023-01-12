@@ -19,22 +19,7 @@ class EventController extends Controller
      */
     public function index()
     {
-        $events = array();
-        $bookings = Event::all();
-        $users = User::all();
-        foreach($bookings as $booking) {
-            $color = "black";
-            
-
-            $events[] = [
-                'id'   => $booking->id,
-                'title' => $booking->title,
-                'start' => $booking->start_date,
-                'end' => $booking->end_date,
-                'color' => $color
-            ];
-        }
-        return view('event.index', ['events' => $events])->with('users',$users);
+        return view('event.index');
     }
 
     /**
